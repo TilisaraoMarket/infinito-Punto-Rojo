@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinito Punto Rojo - Ropa para Niños y Adolescentes</title>
+    <meta name="description" content="Tienda de ropa para niños y adolescentes en Tilisarao, San Luis">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        .nav-link {
+            color: #4B5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #EF4444;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1F2937;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #6B7280;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            display: inline-block;
+            background-color: #EF4444;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #DC2626;
+        }
+        .btn-secondary {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            backdrop-filter: blur(4px);
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .category-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .category-icon {
+            width: 4rem;
+            height: 4rem;
+            background-color: #FEE2E2;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.5rem;
+            color: #EF4444;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-whatsapp {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #EF4444;
+            color: white;
+            border-radius: 9999px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover {
+            background-color: #DC2626;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Main App Component
+        function App() {
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <Header />
+                    <Hero />
+                    <Categories />
+                    <FeaturedProducts />
+                    <About />
+                    <Contact />
+                    <Footer />
+                </div>
+            );
+        }
+        
+        // Header Component with Navigation
+        function Header() {
+            const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+        
+            return (
+                <header className="bg-white shadow-md sticky top-0 z-50">
+                    <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+                        <div className="flex items-center">
+                            <img src="logo.jpg" alt="Infinito Punto Rojo" className="h-16 mr-3" />
+                            <div>
+                                <h1 className="text-2xl font-bold text-red-600">Infinito Punto Rojo</h1>
+                                <p className="text-sm text-gray-600">Moda para niños y adolescentes</p>
+                            </div>
+                        </div>
+                        
+                        {/* Mobile menu button */}
+                        <button 
+                            className="md:hidden text-gray-500 focus:outline-none"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+                        </button>
+                        
+                        {/* Desktop Navigation */}
+                        <nav className="hidden md:flex space-x-8">
+                            <a href="#inicio" className="nav-link">Inicio</a>
+                            <a href="#categorias" className="nav-link">Categorías</a>
+                            <a href="#productos" className="nav-link">Productos</a>
+                            <a href="#nosotros" className="nav-link">Nosotros</a>
+                            <a href="#contacto" className="nav-link">Contacto</a>
+                        </nav>
+                    </div>
+                    
+                    {/* Mobile Navigation */}
+                    {isMenuOpen && (
+                        <nav className="md:hidden bg-white py-4 px-6 shadow-inner">
+                            <div className="flex flex-col space-y-4">
+                                <a href="#inicio" className="nav-link" onClick={() => setIsMenuOpen(false)}>Inicio</a>
+                                <a href="#categorias" className="nav-link" onClick={() => setIsMenuOpen(false)}>Categorías</a>
+                                <a href="#productos" className="nav-link" onClick={() => setIsMenuOpen(false)}>Productos</a>
+                                <a href="#nosotros" className="nav-link" onClick={() => setIsMenuOpen(false)}>Nosotros</a>
+                                <a href="#contacto" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contacto</a>
+                            </div>
+                        </nav>
+                    )}
+                </header>
+            );
+        }
+        
+        // Hero Section
+        function Hero() {
+            return (
+                <section id="inicio" className="relative bg-gradient-to-r from-red-500 to-pink-500 text-white py-20">
+                    <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
+                        <div className="md:w-1/2 mb-10 md:mb-0">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-4">La mejor moda para tus hijos</h2>
+                            <p className="text-xl mb-8">Descubre nuestra colección de ropa para niños y adolescentes con estilo y calidad.</p>
+                            <div className="flex flex-wrap gap-4">
+                                <a href="#productos" className="btn-primary">Ver Productos</a>
+                                <a href="https://wa.me/NUMERODEWHATSAPP" target="_blank" className="btn-secondary">
+                                    <i className="fab fa-whatsapp mr-2"></i> Contactar por WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div className="md:w-1/2 flex justify-center">
+                            <div className="relative w-80 h-80 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                <img src="logo.jpg" alt="Infinito Punto Rojo" className="w-64 h-64 object-contain rounded-full" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 w-full overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
+                            <path fill="#ffffff" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                        </svg>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Categories Section
+        function Categories() {
+            const categories = [
+                { name: "Niños", icon: "fa-child", description: "Ropa cómoda y divertida para niños" },
+                { name: "Niñas", icon: "fa-child-dress", description: "Estilos modernos para niñas" },
+                { name: "Adolescentes", icon: "fa-person", description: "Moda juvenil y tendencias actuales" },
+                { name: "Bebés", icon: "fa-baby", description: "Prendas suaves y delicadas para los más pequeños" }
+            ];
+        
+            return (
+                <section id="categorias" className="py-16 bg-white">
+                    <div className="container mx-auto px-4">
+                        <h2 className="section-title">Nuestras Categorías</h2>
+                        <p className="section-subtitle">Encuentra la ropa perfecta para cada edad y estilo</p>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                            {categories.map((category, index) => (
+                                <div key={index} className="category-card">
+                                    <div className="category-icon">
+                                        <i className={`fas ${category.icon}`}></i>
+                                    </div>
+                                    <h3 className="text-xl font-semibold mt-4">{category.name}</h3>
+                                    <p className="text-gray-600 mt-2">{category.description}</p>
+                                    <a href="#" className="mt-4 inline-block text-red-500 hover:text-red-700 font-medium">
+                                        Ver colección <i className="fas fa-arrow-right ml-1"></i>
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Featured Products Section
+        function FeaturedProducts() {
+            const products = [
+                { name: "Conjunto Deportivo", price: "4.500", image: "https://via.placeholder.com/300x400?text=Conjunto+Deportivo" },
+                { name: "Vestido Floral", price: "3.800", image: "https://via.placeholder.com/300x400?text=Vestido+Floral" },
+                { name: "Jeans Modernos", price: "5.200", image: "https://via.placeholder.com/300x400?text=Jeans+Modernos" },
+                { name: "Camiseta Estampada", price: "2.900", image: "https://via.placeholder.com/300x400?text=Camiseta" }
+            ];
+        
+            return (
+                <section id="productos" className="py-16 bg-gray-50">
+                    <div className="container mx-auto px-4">
+                        <h2 className="section-title">Productos Destacados</h2>
+                        <p className="section-subtitle">Las prendas más populares de nuestra tienda</p>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                            {products.map((product, index) => (
+                                <div key={index} className="product-card">
+                                    <div className="relative overflow-hidden rounded-t-lg">
+                                        <img src={product.image} alt={product.name} className="w-full h-80 object-cover transition-transform duration-500 hover:scale-110" />
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-xl font-semibold">{product.name}</h3>
+                                        <p className="mt-2 text-gray-600">{product.price} USD</p>
+                                        <a href="#contacto" className="mt-4 inline-block btn-primary">Comprar</a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // About Section
+        function About() {
+            return (
+                <section id="nosotros" className="py-16 bg-white">
+                    <div className="container mx-auto px-4">
+                        <h2 className="section-title">Sobre Nosotros</h2>
+                        <p className="section-subtitle">Somos una tienda comprometida con ofrecer moda de calidad para niños y adolescentes.</p>
+                        <div className="mt-8 text-center">
+                            <p className="text-gray-600">Con años de experiencia, nos esforzamos en brindar lo mejor en tendencia y comodidad.</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Contact Section
+        function Contact() {
+            return (
+                <section id="contacto" className="py-16 bg-gray-50">
+                    <div className="container mx-auto px-4 text-center">
+                        <h2 className="section-title">Contáctanos</h2>
+                        <p className="section-subtitle">¿Tienes alguna pregunta? Escríbenos y te responderemos a la brevedad.</p>
+                        <div className="mt-8">
+                            <a href="mailto:info@infinitopuntorojo.com" className="btn-primary">Enviar Correo</a>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Footer Section
+        function Footer() {
+            return (
+                <footer className="bg-white py-6">
+                    <div className="container mx-auto px-4 text-center text-gray-600">
+                        <p>&copy; 2025 Infinito Punto Rojo. Todos los derechos reservados.</p>
+                    </div>
+                </footer>
+            );
+        }
+        
+        // Renderizando la aplicación en el div con id "root"
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+```<!-- filepath: c:\Users\PC\Desktop\Infinito punto rojo\index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinito Punto Rojo - Ropa para Niños y Adolescentes</title>
+    <meta name="description" content="Tienda de ropa para niños y adolescentes en Tilisarao, San Luis">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        .nav-link {
+            color: #4B5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #EF4444;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1F2937;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #6B7280;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            display: inline-block;
+            background-color: #EF4444;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #DC2626;
+        }
+        .btn-secondary {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            backdrop-filter: blur(4px);
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .category-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .category-icon {
+            width: 4rem;
+            height: 4rem;
+            background-color: #FEE2E2;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.5rem;
+            color: #EF4444;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn-whatsapp {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #EF4444;
+            color: white;
+            border-radius: 9999px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover {
+            background-color: #DC2626;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Main App Component
+        function App() {
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <Header />
+                    <Hero />
+                    <Categories />
+                    <FeaturedProducts />
+                    <About />
+                    <Contact />
+                    <Footer />
+                </div>
+            );
+        }
+        
+        // Header Component with Navigation
+        function Header() {
+            const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+        
+            return (
+                <header className="bg-white shadow-md sticky top-0 z-50">
+                    <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+                        <div className="flex items-center">
+                            <img src="logo.jpg" alt="Infinito Punto Rojo" className="h-16 mr-3" />
+                            <div>
+                                <h1 className="text-2xl font-bold text-red-600">Infinito Punto Rojo</h1>
+                                <p className="text-sm text-gray-600">Moda para niños y adolescentes</p>
+                            </div>
+                        </div>
+                        
+                        {/* Mobile menu button */}
+                        <button 
+                            className="md:hidden text-gray-500 focus:outline-none"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+                        </button>
+                        
+                        {/* Desktop Navigation */}
+                        <nav className="hidden md:flex space-x-8">
+                            <a href="#inicio" className="nav-link">Inicio</a>
+                            <a href="#categorias" className="nav-link">Categorías</a>
+                            <a href="#productos" className="nav-link">Productos</a>
+                            <a href="#nosotros" className="nav-link">Nosotros</a>
+                            <a href="#contacto" className="nav-link">Contacto</a>
+                        </nav>
+                    </div>
+                    
+                    {/* Mobile Navigation */}
+                    {isMenuOpen && (
+                        <nav className="md:hidden bg-white py-4 px-6 shadow-inner">
+                            <div className="flex flex-col space-y-4">
+                                <a href="#inicio" className="nav-link" onClick={() => setIsMenuOpen(false)}>Inicio</a>
+                                <a href="#categorias" className="nav-link" onClick={() => setIsMenuOpen(false)}>Categorías</a>
+                                <a href="#productos" className="nav-link" onClick={() => setIsMenuOpen(false)}>Productos</a>
+                                <a href="#nosotros" className="nav-link" onClick={() => setIsMenuOpen(false)}>Nosotros</a>
+                                <a href="#contacto" className="nav-link" onClick={() => setIsMenuOpen(false)}>Contacto</a>
+                            </div>
+                        </nav>
+                    )}
+                </header>
+            );
+        }
+        
+        // Hero Section
+        function Hero() {
+            return (
+                <section id="inicio" className="relative bg-gradient-to-r from-red-500 to-pink-500 text-white py-20">
+                    <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
+                        <div className="md:w-1/2 mb-10 md:mb-0">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-4">La mejor moda para tus hijos</h2>
+                            <p className="text-xl mb-8">Descubre nuestra colección de ropa para niños y adolescentes con estilo y calidad.</p>
+                            <div className="flex flex-wrap gap-4">
+                                <a href="#productos" className="btn-primary">Ver Productos</a>
+                                <a href="https://wa.me/NUMERODEWHATSAPP" target="_blank" className="btn-secondary">
+                                    <i className="fab fa-whatsapp mr-2"></i> Contactar por WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div className="md:w-1/2 flex justify-center">
+                            <div className="relative w-80 h-80 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                <img src="logo.jpg" alt="Infinito Punto Rojo" className="w-64 h-64 object-contain rounded-full" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 w-full overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
+                            <path fill="#ffffff" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                        </svg>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Categories Section
+        function Categories() {
+            const categories = [
+                { name: "Niños", icon: "fa-child", description: "Ropa cómoda y divertida para niños" },
+                { name: "Niñas", icon: "fa-child-dress", description: "Estilos modernos para niñas" },
+                { name: "Adolescentes", icon: "fa-person", description: "Moda juvenil y tendencias actuales" },
+                { name: "Bebés", icon: "fa-baby", description: "Prendas suaves y delicadas para los más pequeños" }
+            ];
+        
+            return (
+                <section id="categorias" className="py-16 bg-white">
+                    <div className="container mx-auto px-4">
+                        <h2 className="section-title">Nuestras Categorías</h2>
+                        <p className="section-subtitle">Encuentra la ropa perfecta para cada edad y estilo</p>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                            {categories.map((category, index) => (
+                                <div key={index} className="category-card">
+                                    <div className="category-icon">
+                                        <i className={`fas ${category.icon}`}></i>
+                                    </div>
+                                    <h3 className="text-xl font-semibold mt-4">{category.name}</h3>
+                                    <p className="text-gray-600 mt-2">{category.description}</p>
+                                    <a href="#" className="mt-4 inline-block text-red-500 hover:text-red-700 font-medium">
+                                        Ver colección <i className="fas fa-arrow-right ml-1"></i>
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Featured Products Section
+        function FeaturedProducts() {
+            const products = [
+                { name: "Conjunto Deportivo", price: "4.500", image: "https://via.placeholder.com/300x400?text=Conjunto+Deportivo" },
+                { name: "Vestido Floral", price: "3.800", image: "https://via.placeholder.com/300x400?text=Vestido+Floral" },
+                { name: "Jeans Modernos", price: "5.200", image: "https://via.placeholder.com/300x400?text=Jeans+Modernos" },
+                { name: "Camiseta Estampada", price: "2.900", image: "https://via.placeholder.com/300x400?text=Camiseta" }
+            ];
+        
+            return (
+                <section id="productos" className="py-16 bg-gray-50">
+                    <div className="container mx-auto px-4">
+                        <h2 className="section-title">Productos Destacados</h2>
+                        <p className="section-subtitle">Las prendas más populares de nuestra tienda</p>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                            {products.map((product, index) => (
+                                <div key={index} className="product-card">
+                                    <div className="relative overflow-hidden rounded-t-lg">
+                                        <img src={product.image} alt={product.name} className="w-full h-80 object-cover transition-transform duration-500 hover:scale-110" />
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-xl font-semibold">{product.name}</h3>
+                                        <p className="mt-2 text-gray-600">{product.price} USD</p>
+                                        <a href="#contacto" className="mt-4 inline-block btn-primary">Comprar</a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // About Section
+        function About() {
+            return (
+                <section id="nosotros" className="py-16 bg-white">
+                    <div className="container mx-auto px-4">
+                        <h2 className="section-title">Sobre Nosotros</h2>
+                        <p className="section-subtitle">Somos una tienda comprometida con ofrecer moda de calidad para niños y adolescentes.</p>
+                        <div className="mt-8 text-center">
+                            <p className="text-gray-600">Con años de experiencia, nos esforzamos en brindar lo mejor en tendencia y comodidad.</p>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Contact Section
+        function Contact() {
+            return (
+                <section id="contacto" className="py-16 bg-gray-50">
+                    <div className="container mx-auto px-4 text-center">
+                        <h2 className="section-title">Contáctanos</h2>
+                        <p className="section-subtitle">¿Tienes alguna pregunta? Escríbenos y te responderemos a la brevedad.</p>
+                        <div className="mt-8">
+                            <a href="mailto:info@infinitopuntorojo.com" className="btn-primary">Enviar Correo</a>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+        
+        // Footer Section
+        function Footer() {
+            return (
+                <footer className="bg-white py-6">
+                    <div className="container mx-auto px-4 text-center">
+                        <a href="https://www.instagram.com/infi_nitopuntorojo/" target="_blank" className="social-icon mr-4">
+                            <i className="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/+5493512090670" target="_blank" className="btn-whatsapp inline-block mr-4">
+                            <i className="fab fa-whatsapp"></i> ¡Envíanos un WhatsApp! 😊📞
+                        </a>
+                        <p className="text-gray-600 mt-4">&copy; 2025 Infinito Punto Rojo. Todos los derechos reservados.</p>
+                    </div>
+                </footer>
+            );
+        }
+        
+        // Renderizando la aplicación en el div con id "root"
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
